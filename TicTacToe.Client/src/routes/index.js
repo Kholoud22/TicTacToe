@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import AddPlayer from '../components/players.vue';
-import GameBoard from '../components/gameBoard.vue';
-import ErrorPage from '../components/error.vue';
+import AddPlayer from '../components/Players.vue';
+import TicTacToe from '../components/TicTacToe.vue';
+import ErrorPage from '../components/ErrorPage.vue';
 
 const routes = [
   {
@@ -10,13 +10,13 @@ const routes = [
   },
   {
     path: '/game/:id',
-    name:'gameBoard',
-    component: GameBoard,
+    name:'TicTacToe',
+    component: TicTacToe,
     props: true
   },
   {
     path: '/:catchAll(.*)*',
-    name: 'errorPage',
+    name: 'ErrorPage',
     component: ErrorPage
   }
 ];

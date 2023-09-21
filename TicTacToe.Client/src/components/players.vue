@@ -1,22 +1,36 @@
 <template>
   <div class="row">
-    <h1 class="display-4">Players</h1>
+    <h1>Players</h1>
     <form @submit.prevent="createPlayers">
       <div class="container">
         <div class="row">
+          <!-- Player X -->
           <div class="col-md-6 col-xs-12">
-            <h6 class="display-6">Player X</h6>
+            <h6>Player X</h6>
             <div class="mb-3">
-              <label for="username" class="form-label">Username:</label>
-              <input type="text" class="form-control" id="usernameX" v-model="playerXUsername" />
+              <label for="usernameX" class="form-label">Username:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="usernameX"
+                v-model="playerXUsername"
+                required
+              />
             </div>
-
           </div>
+
+          <!-- Player O -->
           <div class="col-md-6 col-xs-12">
-            <h6 class="display-6">Player O</h6>
+            <h6>Player O</h6>
             <div class="mb-3">
-              <label for="username" class="form-label">Username:</label>
-              <input type="text" class="form-control" id="usernameO" v-model="playerOUsername" />
+              <label for="usernameO" class="form-label">Username:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="usernameO"
+                v-model="playerOUsername"
+                required
+              />
             </div>
           </div>
         </div>
@@ -34,26 +48,27 @@ export default {
   name: 'AddPlayer',
   data() {
     return {
-      playerXUsername: '', 
-      playerOUsername: ''
+      playerXUsername: '',
+      playerOUsername: '',
     };
   },
   methods: {
-    async createPlayers(){
+    async createPlayers() {
       try {
-        let players = {
+        const players = {
           playerXUsername: this.playerXUsername,
-          playerOUsername: this.playerOUsername
-        }
-        this.gameId = await apiService.createPlayers(players);
-        const router = this.$router;
-        router.push(`game/${this.gameId}`);
-        console.log(this.gameId);
+          playerOUsername: this.playerOUsername,
+        };
+
+        const gameId  = await apiService.createPlayers(players);
+
+        this.$router.push({ name: 'TicTacToe', params: { id: gameId } });
       } catch (error) {
-        console.error('Error loading game details:', error);
+        console.error('Error creating players:', error);
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
+
 

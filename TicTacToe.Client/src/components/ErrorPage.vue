@@ -8,7 +8,7 @@
   
   <script>
   export default {
-    name:'errorPage',
+    name:'ErrorPage',
     methods:{
         navigateToHomePage(){
             this.$router.push('/');

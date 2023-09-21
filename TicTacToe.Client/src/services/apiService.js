@@ -1,5 +1,6 @@
 /* eslint-disable no-useless-catch */
 
+import router from '@/routes';
 import axios from 'axios';
 
 const apiClient = axios.create({
@@ -8,6 +9,30 @@ const apiClient = axios.create({
     'Content-Type': 'application/json',
   },
 });
+
+// Request interceptor
+apiClient.interceptors.request.use(
+    (config) => {
+      return config;
+    },
+    (error) => {
+      router.push({ name: 'ErrorPage' })
+      return Promise.reject(error);
+    }
+  );
+  
+  // Response interceptor
+  apiClient.interceptors.response.use(
+    (response) => {
+      return response;
+    },
+    (error) => {
+      router.push({ name: 'ErrorPage' })
+
+      return Promise.reject(error);
+    }
+  );
+  
 
 export default {
   async getGameDetails(id) {
