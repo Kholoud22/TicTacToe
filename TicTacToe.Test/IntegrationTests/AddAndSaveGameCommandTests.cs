@@ -64,8 +64,8 @@ namespace TicTacToe.Test.IntegrationTests
             Assert.Equal(1, game.PlayerOTotalWins);
 
             command.WinnerId = Guid.Empty;
-            var ex = await Assert.ThrowsAsync<InvalidOperationException>(async () => await SendAsync(command));
-            Assert.Equal("Can't edit a completed game", ex.Message);
+            var ex = await Assert.ThrowsAsync<EditCompletedGameException>(async () => await SendAsync(command));
+            Assert.Equal($"Completed game with Id: {gameId} Can't be edited", ex.Message);
         }
 
         [Fact]

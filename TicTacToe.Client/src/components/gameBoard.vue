@@ -19,9 +19,9 @@
                 </div>
             </div>
         </div>
-        <div class="row mt-5">
+        <div class="row mt-5" v-if="details.status == 'Completed'">
             <button type="submit" class="col-auto me-5 btn btn-primary" @click="createNewGame">Play Again (same player)</button>
-            <button type="submit" class="col-auto btn btn-primary">Play new Game (different player)</button>
+            <button @click="navigateToHomePage" type="submit" class="col-auto btn btn-primary">Play new Game (different player)</button>
         </div>
     </div>
   </template>
@@ -55,47 +55,43 @@
       };
     },
     mounted(){
-    this.getDetails(this.id);
+    this.getDetails(this.id)
+    .catch(()=> this.$router.push({name: 'errorPage'}));
     },
     methods: {
         async getDetails(id){
-            this.details = await apiService.getGameDetails(id)
+            this.details = await apiService.getGameDetails(id);
         },
         async saveGame(){
-            this.gameId = await apiService.saveGame({gameId: this.id, winnerId: this.winnerId})
+            this.gameId = await apiService.saveGame({gameId: this.id, winnerId: this.winnerId});
         },
         async createNewGame(){
-            if(!this.winner)
-            await this.saveGame();
-
             this.winner = null;
             this.winnerId = null;
             this.cells = [
-          { id: 0, value: null },
-          { id: 1, value: null },
-          { id: 2, value: null },
-          { id: 3, value: null },
-          { id: 4, value: null },
-          { id: 5, value: null },
-          { id: 6, value: null },
-          { id: 7, value: null },
-          { id: 8, value: null },
-        ];
+                { id: 0, value: null },
+                { id: 1, value: null },
+                { id: 2, value: null },
+                { id: 3, value: null },
+                { id: 4, value: null },
+                { id: 5, value: null },
+                { id: 6, value: null },
+                { id: 7, value: null },
+                { id: 8, value: null },
+            ];
             this.gameId = await apiService.createGame({playerXId: this.details.playerXId, playerOId: this.details.playerOId});
             this.$router.push({ name: 'gameBoard', params: { id: this.gameId } });
 
-            console.log(this.gameId);
             await this.getDetails(this.gameId);
         },
-      makeMove(cell) {
-        console.log(this.details)
+        makeMove(cell) {
         if (!cell.value && !this.winner && this.details.status != "Completed") {
           cell.value = this.currentPlayer;
           this.checkWinner();
           this.currentPlayer = this.currentPlayer === "X" ? "O" : "X";
         }
-      },
-      async checkWinner() {
+        },
+        async checkWinner() {
         const winConditions = [
           [0, 1, 2],
           [3, 4, 5],
@@ -109,19 +105,26 @@
   
         for (const condition of winConditions) {
           const [a, b, c] = condition;
+          
           if (
             this.cells[a].value &&
             this.cells[a].value === this.cells[b].value &&
             this.cells[a].value === this.cells[c].value
+            || this.cells.every((cell)=> cell.value != null)
           ) {
             this.winner = this.cells[a].value;
             this.winnerId = this.winner === "X" ? this.details.playerXId : this.winner === "O" ? this.details.playerOId : null;
-            await this.saveGame();
-            await this.getDetails(this.gameId);
+            await this.saveGame()
+            .catch(()=> this.$router.push({name: 'errorPage'}));
+            await this.getDetails(this.gameId)
+            .catch(()=> this.$router.push({name: 'errorPage'}));
             break;
           }
         }
-      },
+        },
+        navigateToHomePage(){
+            this.$router.push('/');
+        }
     },
   };
   </script>

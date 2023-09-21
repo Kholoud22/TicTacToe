@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import AddPlayer from '../components/players.vue';
 import GameBoard from '../components/gameBoard.vue';
+import ErrorPage from '../components/error.vue';
 
 const routes = [
   {
@@ -13,6 +14,11 @@ const routes = [
     component: GameBoard,
     props: true
   },
+  {
+    path: '/:catchAll(.*)*',
+    name: 'errorPage',
+    component: ErrorPage
+  }
 ];
 
 const router = createRouter({
