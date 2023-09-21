@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicTacToe.API", "TicTacToe.API\TicTacToe.API.csproj", "{354CD9D7-0F22-4AC5-A2FD-E924EE2F63D5}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicTacToe.Domain", "TicTacToe.Domain\TicTacToe.Domain.csproj", "{AD61CE03-DC1C-4ECA-9FE1-674CC2D3F5CC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicTacToe.Infrastructure", "TicTacToe.Infrastructure\TicTacToe.Infrastructure.csproj", "{6E7283A4-67C0-4F06-8186-922D21B80B82}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicTacToe.Application", "TicTacToe.Application\TicTacToe.Application.csproj", "{D661D531-DE05-4CDC-A921-9F1C87B6BE08}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicTacToe.API", "TicTacToe.API\TicTacToe.API.csproj", "{354CD9D7-0F22-4AC5-A2FD-E924EE2F63D5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicTacToe.Test", "TicTacToe.Test\TicTacToe.Test.csproj", "{6CAD345C-7953-4F5A-AC04-95886A712C71}"
 EndProject
